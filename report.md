@@ -4,7 +4,7 @@
 ### Map Area
 Al-Khobar, Eastern Province, Kingdom of Saudi Arabia
 
-- [https://www.openstreetmap.org/export#map=18/26.30400/50.19602]
+- [OpenStreetMap URL](https://www.openstreetmap.org/export#map=18/26.30400/50.19602)
 - 
 
 This map is of my hometown.
