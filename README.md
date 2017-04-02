@@ -1,2 +1,2 @@
-# dandp3-wrangle-openStreetMap-data
+# Udacity DAND P3: Wrangle OpenStreetMap Data with SQL
 Data Analyst Nanodegree Project 3
