@@ -13,16 +13,7 @@ This map is of the capital city of my home country, Saudi Arabia. The capital, R
 ## 1. Problems Encountered in the Map
 
 - Arabic Names:
-  - `
-      <tag k="addr:street" v="شارع الإمام عبد الله بن سعود بن عبد العزيز"/>
-    <tag k="amenity" v="hospital"/>
-    <tag k="name" v="فال العافية"/>
-
-    <tag k="amenity" v="restaurant"/>
-    <tag k="name" v="شيخ البلد"/>
-    
-    <tag k="amenity" v="fuel"/>
-    <tag k="name" v="سهل"/> `
+    - `شارع` -> `Street`
 
 ## 2. Sort cities by count, descending
 
