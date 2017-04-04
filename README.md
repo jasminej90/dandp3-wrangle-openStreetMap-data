@@ -3,3 +3,11 @@ Data Analyst Nanodegree Project 3
 
 
 In this project I use data munging techniques, such as assessing the quality of the data for validity, accuracy, completeness, consistency and uniformity, to clean a selected part of OpenStreetMap data using SQL.
+
+
+# Files
+* `quizes/` : python scripts for "Case Study: OpenStreetMap Data" exercises
+* `riyadh_saudiArabia_map_sample.osm`: sample data of the OSM file
+* `report.md` : md version of the whole data wrangling process
+* `mapparser.py` : parse OSM file to count unique tags
+* `tags.py` : categorize tags in the OSM file
