@@ -10,15 +10,63 @@ Riyadh, Kingdom of Saudi Arabia
 This map is of the capital city of my home country, Saudi Arabia. The capital, Riyadh, is near from my hometown.
 
 
-## 1. Problems Encountered in the Map
+## 1. Data Auditing
+
+## 2. Problems Encountered in the Map
 
 - Arabic Names:
     - `شارع` -> `Street`
+    - `طريق` -> `Road`
+- Abbreviations:
+    - `St.` -> `Street`
+    - `Rd` -> `Road`
 
-## 2. Sort cities by count, descending
+## 3. Data Overview
+This section includes general stats about the dataset, and the SQL queries used to collect the data.
 
-## 3. Data Overview and Additional Ideas
+### File sizes
+```
+```
+
+### Number of
+#### a) nodes
+```
+```
+
+#### b) ways
+```
+```
+
+#### c) relations
+```
+```
+
+### Number of unique users
+```
+```
+
+### Top 10 contributing users
+```
+```
+
+### Number of users appearing only once (having 1 post)
+```
+```
+
 
 ## 4. Additional Ideas
+
+### Top 10 ammenities
+```
+```
+
+### Biggest religion
+```
+```
+
+### Most popular cuisines
+```
+```
+
 
 ## 5. Conclusion
