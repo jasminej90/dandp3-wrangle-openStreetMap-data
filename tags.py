@@ -11,9 +11,11 @@ Count certain regular expression patterns in the OSM file tags.
 """
 
 
-lower = re.compile(r'^([a-z]|_)*$')
-lower_colon = re.compile(r'^([a-z]|_)*:([a-z]|_)*$')
+lower = re.compile(r'^([0-9a-z]|_)*$')
+lower_colon = re.compile(r'^([a-z]|_)*:([0-9a-z]|_|-)*$')
+upper = re.compile(r'^([A-Z]|_)*$')
 problemchars = re.compile(r'[=\+/&<>;\'"\?%#$@\,\. \t\r\n]')
+
 
 OSMFILE = 'riyadh_saudiArabia_map.osm'
 
@@ -22,20 +24,25 @@ def key_type(element, keys):
     if element.tag == "tag":
         if lower.search(element.attrib['k']):
             keys['lower'] += 1
+            # print('lower: ' + element.attrib['k'])
         elif lower_colon.search(element.attrib['k']):
             keys['lower_colon'] += 1
+            # print('lower_col: ' + element.attrib['k'])
+        elif upper.search(element.attrib['k']):
+            keys['upper'] += 1
+            # print('upper: ' + element.attrib['k'])
         elif problemchars.search(element.attrib['k']):
             keys['problemchars'] += 1
-            print(element.attrib['k'])
+            # print('prob: ' + element.attrib['k'])
         else:
-            print(element.attrib['k'])
+            # print('other--  ' + element.attrib['k'])
             keys['other'] += 1
     return keys
 
 
 
 def process_map(filename):
-    keys = {"lower": 0, "lower_colon": 0, "problemchars": 0, "other": 0}
+    keys = {"lower": 0, "lower_colon": 0, "upper":0, "problemchars": 0, "other": 0}
     for _, element in ET.iterparse(filename):
         keys = key_type(element, keys)
 
