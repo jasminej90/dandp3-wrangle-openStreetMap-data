@@ -54,24 +54,29 @@ They either mix upper with lowercase letters and numeric, include more than one 
 
 ## 2. Problems Encountered in the Map
 
-To narrow it down, I decided to audit the street names only in my OSM dataset. I've noticed that the street names are written in two languages, Arabic and English, and so I've detected the following main problems in the dataset:
+To narrow it down, I decided to audit the street names only in my OSM dataset. `audit.py` is used to check for any inconsistencies. I've noticed that the street names are written in two languages, Arabic and English, and so I've detected the following main problems in the dataset:
 
 - Inconsistent Street Naming Languages:
   - `Arabic` -> `شارع معاوية بن أبي سفيان`
   - `English` -> `Imam Saud Street`
  
-- Problems with Arabic Street Names:
+ ### Problems with Arabic Street Names:
   - Written from right to left
-  - Some street names don't even have the keyword `street` or `road` before the name: {{'عبد': {'عبد العزيز بن مساعد بن جلوي'}
+    `شارع معاوية بن أبي سفيان`
+  - Missing keywords `street/road` before the name:
+    `{{'عبد': {'عبد العزيز بن مساعد بن جلوي'}`
     
-- Problems with English Street Names:
-  - Abbreviations: `St.` -> `Street`
-  - St/Rd keywords are in the middle of the street name: Uthman Ibn Affan Branch Rd, At Taawun, Riyadh 12478
-
-As I noticed that there is one problematic character and more than 500 tags that do not fall into any category, I printed them to understand what is going on.
-
-Inconsistencies
-`audit.py`
+### Problems with English Street Names:
+  - Abbreviations:
+    `St. , St` -> `Street`
+  - Lower case:
+      `street, road` -> `Street, Road`
+  - St/Rd keywords are in the middle of the street name:
+      `Uthman Ibn Affan Branch Rd, At Taawun, Riyadh 12478`
+  - Inconsistent lower and upper letter cases:
+      `Al kharj road, Al Jazi Valley`
+  - Inconsistent spelling for the same word:
+  `Abdulaziz, Abdul Aziz`
 
 
 ## 3. Data Cleaning
