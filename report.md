@@ -62,22 +62,21 @@ To narrow it down, I decided to audit the street names only in my OSM dataset. `
  
  ### Problems with Arabic Street Names:
   - Written from right to left
-    `شارع معاوية بن أبي سفيان`
+    - `شارع معاوية بن أبي سفيان`
   - Missing keywords `street/road` before the name:
-    `{{'عبد': {'عبد العزيز بن مساعد بن جلوي'}`
+    - `{{'عبد': {'عبد العزيز بن مساعد بن جلوي'}`
     
 ### Problems with English Street Names:
   - Abbreviations:
-    `St. , St` -> `Street`
+    - `St. , St` -> `Street`
   - Lower case:
-      `street, road` -> `Street, Road`
+    - `street, road` -> `Street, Road`
   - St/Rd keywords are in the middle of the street name:
-      `Uthman Ibn Affan Branch Rd, At Taawun, Riyadh 12478`
+    - `Uthman Ibn Affan Branch Rd, At Taawun, Riyadh 12478`
   - Inconsistent lower and upper letter cases:
-      `Al kharj road, Al Jazi Valley`
+    - `Al kharj road, Al Jazi Valley`
   - Inconsistent spelling for the same word:
-  `Abdulaziz, Abdul Aziz`
-
+    - `Abdulaziz, Abdul Aziz`
 
 ## 3. Data Cleaning
 In this section, `data.py` file is used to convert XML map file to CSV. Parsing, cleaning, and shaping the dataset is also occuring while converting the data format. Then, the clean dataset is imported into an SQL database using a specificed schema.
