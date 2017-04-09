@@ -12,3 +12,4 @@ In this project I use data munging techniques, such as assessing the quality of 
 * `mapparser.py` : parse OSM file to count unique tags
 * `tags.py` : categorize tags in the OSM file
 * `audit.py` : audit street addresses, and update their names
+* `data.py` : build CSV files from XML OSM data to insert them into sql db, as well as clean and shape the data
