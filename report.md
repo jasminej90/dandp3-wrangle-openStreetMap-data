@@ -84,7 +84,14 @@ To narrow it down, I decided to audit the street names only in my OSM dataset. `
   - Incorrect street names:
     - `No. 6` -> `6th Street`
     
+    
+```python
+street_type_re = re.compile(r'\b[a-zA-Z]+\.?$', re.IGNORECASE)
+street_type_ar_re = re.compile(r'([\u0621-\u06FF]+)')
 ```
+Using regular expressions, I was able to parse each street name language seperately. However, the task turned out to be very costly and beyond the scope of this exercise. Hence, I decided to focus only on the english street names.
+
+```python
 def update_name(name, mapping):
 
 	if name in mapping:
@@ -108,6 +115,7 @@ def update_name(name, mapping):
 
 	return name
  ```
+ Using the above update function, I updated all the bad street names either by mapping them to better written names, capitalizing the first letters, or attaching street keyword at the end.
 
 ## 3. Data Cleaning
 In this section, `data.py` file is used to convert XML map file to CSV files. Parsing, cleaning, and shaping the XML OSM data into python dictionaries using a specificed schema is also occuring while converting the data format. Then, the clean dataset is imported into an SQL database using `database.py` file.
