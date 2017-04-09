@@ -83,7 +83,8 @@ To narrow it down, I decided to audit the street names only in my OSM dataset. `
     - `Ibn Shamil`
   - Incorrect street names:
     - `No. 6` -> `6th Street`
-    
+
+### Handling Street Names
     
 ```python
 street_type_re = re.compile(r'\b[a-zA-Z]+\.?$', re.IGNORECASE)
