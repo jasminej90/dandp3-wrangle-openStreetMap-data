@@ -108,7 +108,7 @@ def update_name(name, mapping):
 	        else:
 	            name[i] = string_case(name[i])
 
-	    # is last word is street?
+	    # Does it contain street keyword?
 	    if (name[len(name) - 1] not in expected) & ('Road' not in ' '.join(name)):
 	    	name = ' '.join(name) + " Street"
 	    else:
@@ -187,6 +187,7 @@ FROM
 39
 
 ## 5. Additional Exploration
+This section includes more SQL queries for further exploration of the city.
 
 ### Top 10 ammenities
 ```sql
