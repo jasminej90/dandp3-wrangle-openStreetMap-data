@@ -72,7 +72,6 @@ def merge_two_dicts(x, y):
 
 
 def audit(osmfile):
-    osm_file = open(osmfile, "r")
     street_types = defaultdict(set)
     prob_streets = defaultdict(set)
     street_starts = defaultdict(set)
