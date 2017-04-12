@@ -270,6 +270,10 @@ oriental;arab;local|1
 seafood|1
 ```
 
+## 6. Additional Ideas
+- Since the language was a challenge in this exercise, I suggest either forcing rules on the contributers to ensure including the english street name. Otherwise, upgrade OpenStreetMap code to include a seamless translation to english once a street name is inputted in a different language.
 
-## 6. Conclusion
+- Some street names I noticed that they start with "via", which is more of a description than a street name. I suggest adding proper naming conventions conditions from OpenStreetMap side.
+
+## 7. Conclusion
 Dealing with Riyadh dataset was challenging due to the inconsistent language usage in naming the streets. Arabic street names are written from right to left, any special treatments that apply to them will not work on the english names. and so for the sake of handling this project's scope, I decided to discard the arabic names. In addiation, there were a lot of inconsistencies in terms of street naming. However, the chosen dataset was cleaned properly for this exerciese, but there is a huge area left for improvement. In the future, I was considering importing a translation service from Google Translate API to translate all arabic street names.
