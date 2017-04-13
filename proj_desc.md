@@ -9,6 +9,7 @@ In this project I use data munging techniques, such as assessing the quality of 
 * `quizes/` : python scripts for "Case Study: OpenStreetMap Data" exercises
 * `riyadh_saudiArabia_map_sample.osm`: sample data of the OSM file
 * `README.md` : md version of the whole data wrangling process
+* `report.html` : html version of the whole data wrangling process report
 * `mapparser.py` : parse OSM file to count unique tags
 * `tags.py` : categorize tags in the OSM file
 * `audit.py` : audit street addresses, and update their names
