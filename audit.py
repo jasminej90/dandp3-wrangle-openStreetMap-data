@@ -40,7 +40,7 @@ mapping = { "St": "Street",
             "Abdulaziz" : "Abdul Aziz",
             "Pr." : "Prince",
             "Exit 5, King Abdulaziz Road - North Ring Road (west)" : "Exit 5, King Abdul Aziz Road",
-            "Prince Faisal Ibn Turki Ibn Abdulaziz, Al Murabba, Riyadh 12612, Saudi Arabia" : "Prince Faisal Ibn Turki Ibn Abdulaziz"
+            "Prince Faisal Ibn Turki Ibn Abdulaziz, Al Murabba, Riyadh 12612, Saudi Arabia" : "Prince Faisal Ibn Turki Ibn Abdul Aziz Street"
             }
 
 def audit_street_type(prob_streets, street_types, street_name):
@@ -94,26 +94,31 @@ def string_case(s):
 
 def update_name(name, mapping):
 
-	if name in mapping:
-		name = mapping[name]
+	if (name in discard) or (street_type_ar_re.search(name)):
+		return name
+
 
 	else:
-	    name = name.split(' ')
+		if name in mapping:
+			name = mapping[name]
 
-	    for i in range(len(name)):
-	        if name[i] in mapping:
-	        	name[i] = mapping[name[i]]
-	        	name[i] = string_case(name[i])
-	        else:
-	            name[i] = string_case(name[i])
+		else:
+		    name = name.split(' ')
 
-	    # is last word is street?
-	    if (name[len(name) - 1] not in expected) & ('Road' not in ' '.join(name)):
-	    	name = ' '.join(name) + " Street"
-	    else:
-	    	name = ' '.join(name)
+		    for i in range(len(name)):
+		        if name[i] in mapping:
+		        	name[i] = mapping[name[i]]
+		        	name[i] = string_case(name[i])
+		        else:
+		            name[i] = string_case(name[i])
 
-	return name
+		    # is last word is street?
+		    if (name[len(name) - 1] not in expected) & ('Road' not in ' '.join(name)) & ('Path' not in ' '.join(name)):
+		    	name = ' '.join(name) + " Street"
+		    else:
+		    	name = ' '.join(name)
+
+		return name
 
 
 if __name__ == '__main__':
