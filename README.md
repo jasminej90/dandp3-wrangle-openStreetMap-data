@@ -273,7 +273,39 @@ seafood|1
 ## 6. Additional Ideas
 - Since the language was a challenge in this exercise, I suggest either forcing rules on the contributers to ensure including the english street name. Otherwise, upgrade OpenStreetMap code to include a seamless translation to english once a street name is inputted in a different language.
 
-- Some street names I noticed that they start with "via", which is more of a description than a street name. I suggest adding proper naming conventions conditions from OpenStreetMap side.
+- The other way to deal with different languages in OpenStreetMap data is to import translation service from Google Translate API. In fact, I succeeded in doing so, it was very straight forward 
+
+Installation
+------------
+
+::
+   pip install translate
+
+Or, you can download the source and
+
+::
+   python setup.py install
+
+
+Command-Line Usage
+------------------
+
+In your command-line:
+
+::
+   yasmin$ translate -t eng -f ar "شارع معاوية ابن أبي سفيان"
+
+Output
+
+::
+   yasmin$ translate -t eng -f ar "شارع معاوية ابن أبي سفيان"
+
+However, this might introduce another type of problems. For example, in the case of wrong or missing translations, that will lead to misinterpreted data in the database. One possible solution is to apply regular expression checks after translation to ensure that the street name is in proper format.
+
 
 ## 7. Conclusion
 Dealing with Riyadh dataset was challenging due to the inconsistent language usage in naming the streets. Arabic street names are written from right to left, any special treatments that apply to them will not work on the english names. and so for the sake of handling this project's scope, I decided to discard the arabic names. In addiation, there were a lot of inconsistencies in terms of street naming. However, the chosen dataset was cleaned properly for this exerciese, but there is a huge area left for improvement. In the future, I was considering importing a translation service from Google Translate API to translate all arabic street names.
+
+
+## 8. References
+- [1] https://github.com/terryyin/google-translate-python
