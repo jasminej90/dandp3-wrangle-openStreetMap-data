@@ -275,8 +275,7 @@ seafood|1
 
 - The other way to deal with different languages in OpenStreetMap data is to import translation service from Google Translate API. In fact, I succeeded in doing so, it was very straight forward 
 
-Installation
-------------
+#### Installation
 ```{bash}
    pip install translate
 ```
@@ -286,8 +285,7 @@ Or, you can download the source and
    python setup.py install
 ```
 
-Command-Line Usage
-------------------
+#### Command-Line Usage
 In your command-line:
 ```
 yasmin$ translate -t eng -f ar "شارع معاوية ابن أبي سفيان"
