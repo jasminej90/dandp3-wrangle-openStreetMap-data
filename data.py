@@ -12,11 +12,14 @@ import pprint
 import re
 import xml.etree.cElementTree as ET
 
+from audit import update_name
+from audit import mapping
+
 import cerberus
 
 import schema
 
-OSM_PATH = "riyadh_saudiArabia_map.osm"
+OSM_PATH = "riyadh_saudiArabia_map_sample.osm"
 
 NODES_PATH = "nodes.csv"
 NODE_TAGS_PATH = "nodes_tags.csv"
@@ -56,7 +59,10 @@ def shape_element(element, node_attr_fields=NODE_FIELDS, way_attr_fields=WAY_FIE
                 node_tag['type'] = child.attrib['k'].split(':',1)[0]
                 node_tag['key'] = child.attrib['k'].split(':',1)[1]
                 node_tag['id'] = element.attrib['id']
-                node_tag['value'] = child.attrib['v']
+                if child.attrib["k"] == 'addr:street':
+                    node_tag["value"] = update_name(child.attrib["v"], mapping)
+                else:
+                    node_tag['value'] = child.attrib['v']
                 tags.append(node_tag)
             elif PROBLEMCHARS.match(child.attrib['k']):
                 continue
