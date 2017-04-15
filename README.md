@@ -296,6 +296,8 @@ Muawiya Ibn Abi Sufyan Street
 ```
 However, this might introduce another type of problems. For example, in the case of wrong or missing translations, that will lead to misinterpreted data in the database. One possible solution is to apply regular expression checks after translation to ensure that the street name is in proper format.
 
+_*to include Translation services as a module in your python code, refer to link in References._
+
 
 ## 7. Conclusion
 Dealing with Riyadh dataset was challenging due to the inconsistent language usage in naming the streets. Arabic street names are written from right to left, any special treatments that apply to them will not work on the english names. and so for the sake of handling this project's scope, I decided to discard the arabic names. In addiation, there were a lot of inconsistencies in terms of street naming. However, the chosen dataset was cleaned properly for this exerciese, but there is a huge area left for improvement. In the future, I was considering importing a translation service from Google Translate API to translate all arabic street names.
