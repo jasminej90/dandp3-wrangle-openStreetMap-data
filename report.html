@@ -375,12 +375,35 @@ seafood|<span class="pl-c1">1</span></pre></div>
 <p>Since the language was a challenge in this exercise, I suggest either forcing rules on the contributers to ensure including the english street name. Otherwise, upgrade OpenStreetMap code to include a seamless translation to english once a street name is inputted in a different language.</p>
 </li>
 <li>
-<p>Some street names I noticed that they start with "via", which is more of a description than a street name. I suggest adding proper naming conventions conditions from OpenStreetMap side.</p>
+<p>The other way to deal with different languages in OpenStreetMap data is to import translation service from Google Translate API. In fact, I succeeded in doing so, it was very straight forward</p>
 </li>
 </ul>
+<h4>
+<a id="user-content-installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h4>
+<pre lang="{bash}"><code>   pip install translate
+</code></pre>
+<p>Or, you can download the source and</p>
+<pre lang="{bash}"><code>   python setup.py install
+</code></pre>
+<h4>
+<a id="user-content-command-line-usage" class="anchor" href="#command-line-usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Command-Line Usage</h4>
+<p>In your command-line:</p>
+<pre><code>yasmin$ translate -t eng -f ar "شارع معاوية ابن أبي سفيان"
+</code></pre>
+<p>Output</p>
+<pre><code>Muawiya Ibn Abi Sufyan Street
+</code></pre>
+<p>However, this might introduce another type of problems. For example, in the case of wrong or missing translations, that will lead to misinterpreted data in the database. One possible solution is to apply regular expression checks after translation to ensure that the street name is in proper format.</p>
+<p><em>*to include Translation services as a module in your python code, refer to link in References.</em></p>
 <h2>
 <a id="user-content-7-conclusion" class="anchor" href="#7-conclusion" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7. Conclusion</h2>
 <p>Dealing with Riyadh dataset was challenging due to the inconsistent language usage in naming the streets. Arabic street names are written from right to left, any special treatments that apply to them will not work on the english names. and so for the sake of handling this project's scope, I decided to discard the arabic names. In addiation, there were a lot of inconsistencies in terms of street naming. However, the chosen dataset was cleaned properly for this exerciese, but there is a huge area left for improvement. In the future, I was considering importing a translation service from Google Translate API to translate all arabic street names.</p>
+<h2>
+<a id="user-content-8-references" class="anchor" href="#8-references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>8. References</h2>
+<ul>
+<li>[1] <a href="https://github.com/terryyin/google-translate-python">https://github.com/terryyin/google-translate-python</a>
+</li>
+</ul>
 
               </article>
             </div>
