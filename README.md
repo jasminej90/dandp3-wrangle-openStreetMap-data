@@ -277,18 +277,18 @@ seafood|1
 
 Installation
 ------------
-::
+```{bash}
    pip install translate
+```
 
 Or, you can download the source and
-
-::
+```{bash}
    python setup.py install
+```
 
 Command-Line Usage
 ------------------
 In your command-line:
-
 ```
 yasmin$ translate -t eng -f ar "شارع معاوية ابن أبي سفيان"
 ```
