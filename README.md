@@ -277,7 +277,6 @@ seafood|1
 
 Installation
 ------------
-
 ::
    pip install translate
 
@@ -286,20 +285,17 @@ Or, you can download the source and
 ::
    python setup.py install
 
-
 Command-Line Usage
 ------------------
-
 In your command-line:
 
-::
-   yasmin$ translate -t eng -f ar "شارع معاوية ابن أبي سفيان"
-
+```
+yasmin$ translate -t eng -f ar "شارع معاوية ابن أبي سفيان"
+```
 Output
-
-::
-   yasmin$ translate -t eng -f ar "شارع معاوية ابن أبي سفيان"
-
+```
+Muawiya Ibn Abi Sufyan Street
+```
 However, this might introduce another type of problems. For example, in the case of wrong or missing translations, that will lead to misinterpreted data in the database. One possible solution is to apply regular expression checks after translation to ensure that the street name is in proper format.
 
 
