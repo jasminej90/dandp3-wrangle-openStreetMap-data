@@ -22,7 +22,7 @@ problemchars = re.compile(r'\,|\.\b')
 street_type_re = re.compile(r'\b[a-zA-Z]+\.?$', re.IGNORECASE)
 street_start_re = re.compile(r'^[a-zA-Z]+', re.IGNORECASE)
 street_type_ar_re = re.compile(r'([\u0621-\u06FF]+)')
-
+postcode_re = re.compile(r'^\d{3,5}$')
 
 expected = ["Road", "Street", "Prince"]
 
@@ -40,7 +40,9 @@ mapping = { "St": "Street",
             "Abdulaziz" : "Abdul Aziz",
             "Pr." : "Prince",
             "Exit 5, King Abdulaziz Road - North Ring Road (west)" : "Exit 5, King Abdul Aziz Road",
-            "Prince Faisal Ibn Turki Ibn Abdulaziz, Al Murabba, Riyadh 12612, Saudi Arabia" : "Prince Faisal Ibn Turki Ibn Abdul Aziz Street"
+            "Prince Faisal Ibn Turki Ibn Abdulaziz, Al Murabba, Riyadh 12612, Saudi Arabia" : "Prince Faisal Ibn Turki Ibn Abdul Aziz Street",
+            "7069" : "11432",
+            "0000" : ""
             }
 
 def audit_street_type(prob_streets, street_types, street_name):
@@ -65,42 +67,48 @@ def audit_street_start(street_starts, street_name):
 def is_street_name(elem):
 	return (elem.attrib['k'] == "addr:street")
 
-def merge_two_dicts(x, y):
-	z = x.copy()
-	z.update(y)
-	return z
+def is_post_code(elem):
+	return (elem.attrib['k'] == "addr:postcode")
 
+def audit_post_code(postcode_types, postcode):
+	m = postcode_re.search(postcode)
+	if m:
+		# pc = len(m.group(0))
+		pc = m.group()
+		postcode_types[pc].add(postcode)
 
 def audit(osmfile):
-    street_types = defaultdict(set)
-    prob_streets = defaultdict(set)
-    street_starts = defaultdict(set)
-    for event, elem in ET.iterparse(osm_file, events=("start",)):
-        if elem.tag == "node" or elem.tag == "way":
-            for tag in elem.iter("tag"):
-                if is_street_name(tag):
-                    audit_street_type(prob_streets, street_types, tag.attrib['v'])
-                    audit_street_start(street_starts, tag.attrib['v'])
-    osm_file.close()
+	osm_file = open(osmfile, "r")
 
-    d = merge_two_dicts(merge_two_dicts(prob_streets, street_types), street_starts)
-    return d
+	street_types = defaultdict(set)
+	prob_streets = defaultdict(set)
+	street_starts = defaultdict(set)
+	postcode_types = defaultdict(set)
 
-def string_case(s):
-    if s.isupper():
-        return s
-    else:
-        return s.title()
+	for event, elem in ET.iterparse(osm_file, events=("start",)):
+		if elem.tag == "node" or elem.tag == "way":
+			for tag in elem.iter("tag"):
+				if is_street_name(tag):
+					audit_street_type(prob_streets, street_types, tag.attrib['v'])
+					audit_street_start(street_starts, tag.attrib['v'])
+				elif is_post_code(tag):
+					audit_post_code(postcode_types, tag.attrib['v'])
+	osm_file.close()
+
+	d = merge_two_dicts(merge_two_dicts(prob_streets, street_types), merge_two_dicts(street_starts, postcode_types))
+	return d
 
 def update_name(name, mapping):
 
 	if (name in discard) or (street_type_ar_re.search(name)):
 		return name
 
-
 	else:
 		if name in mapping:
 			name = mapping[name]
+
+		elif is_number(name):
+			name = name
 
 		else:
 		    name = name.split(' ')
@@ -119,6 +127,26 @@ def update_name(name, mapping):
 		    	name = ' '.join(name)
 
 		return name
+
+
+# helper functions
+def string_case(s):
+    if s.isupper():
+        return s
+    else:
+        return s.title()
+
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
+
+def merge_two_dicts(x, y):
+	z = x.copy()
+	z.update(y)
+	return z
 
 
 if __name__ == '__main__':
