@@ -59,7 +59,7 @@ def shape_element(element, node_attr_fields=NODE_FIELDS, way_attr_fields=WAY_FIE
                 node_tag['type'] = child.attrib['k'].split(':',1)[0]
                 node_tag['key'] = child.attrib['k'].split(':',1)[1]
                 node_tag['id'] = element.attrib['id']
-                if child.attrib["k"] == 'addr:street':
+                if child.attrib["k"] == 'addr:street' or child.attrib["k"] == 'addr:postcode':
                     node_tag["value"] = update_name(child.attrib["v"], mapping)
                 else:
                     node_tag['value'] = child.attrib['v']
