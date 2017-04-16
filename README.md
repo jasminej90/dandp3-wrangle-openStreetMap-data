@@ -56,17 +56,17 @@ They either mix upper with lowercase letters and numeric, include more than one 
 
 To narrow it down, I decided to audit the street names only in my OSM dataset. `audit.py` is used to check for any inconsistencies. I've noticed that the street names are written in two languages, Arabic and English, and so I've detected the following main problems in the dataset:
 
-- Inconsistent Street Naming Languages:
+### Inconsistent Street Naming Languages:
   - `Arabic` -> `شارع معاوية بن أبي سفيان`
   - `English` -> `Imam Saud Street`
  
- ### Problems with Arabic Street Names:
+ #### - Problems with Arabic Street Names:
   - Written from right to left
     - `شارع معاوية بن أبي سفيان`
   - Missing keywords `street/road` before the name:
     - `{{'عبد': {'عبد العزيز بن مساعد بن جلوي'}`
     
-### Problems with English Street Names:
+#### - Problems with English Street Names:
   - Abbreviations:
     - `St. , St` -> `Street`
     - `Pr.` -> `Prince`
@@ -83,6 +83,14 @@ To narrow it down, I decided to audit the street names only in my OSM dataset. `
     - `Ibn Shamil`
   - Incorrect street names:
     - `No. 6` -> `6th Street`
+ 
+### Inconsistent Postal codes:
+  - `4 digits only` -> `7069`
+  - `5 digits - standard` -> `00966`
+  - `Arabic digits` -> `١١٤٩١`
+
+## 3. Data Cleaning
+In this section, `data.py` file is used to convert XML map file to CSV files. Parsing, cleaning, and shaping the XML OSM data into python dictionaries using a specificed schema is also occuring while converting the data format. Then, the clean dataset is imported into an SQL database using `database.py` file. Below is an explanation of how I handle the cleaning of street names and postal codes.
 
 ### Handling Street Names
     
@@ -117,9 +125,12 @@ def update_name(name, mapping):
 	return name
  ```
  Using the above update function, I updated all the bad street names either by mapping them to better written names, capitalizing the first letters, or attaching street keyword at the end.
-
-## 3. Data Cleaning
-In this section, `data.py` file is used to convert XML map file to CSV files. Parsing, cleaning, and shaping the XML OSM data into python dictionaries using a specificed schema is also occuring while converting the data format. Then, the clean dataset is imported into an SQL database using `database.py` file.
+ 
+ ### Handling Postal Codes
+ ```python
+postcode_re = re.compile(r'^\d{3,5}$')
+```
+Using regular expressions, I was able to find all postcodes that have 3-5 digits. Then, in my update_name function I clean all postcodes that are less than 5 digits (I found only two) where I return a standardized five digit postal code.
 
 ## 4. Data Overview
 This section includes general stats about the dataset, and the SQL queries used to collect the data.
