@@ -132,8 +132,8 @@ ISO3166-1:alpha2
 <h2>
 <a id="user-content-2-problems-encountered-in-the-map" class="anchor" href="#2-problems-encountered-in-the-map" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2. Problems Encountered in the Map</h2>
 <p>To narrow it down, I decided to audit the street names only in my OSM dataset. <code>audit.py</code> is used to check for any inconsistencies. I've noticed that the street names are written in two languages, Arabic and English, and so I've detected the following main problems in the dataset:</p>
-<ul>
-<li>Inconsistent Street Naming Languages:
+<h3>
+<a id="user-content-inconsistent-street-naming-languages" class="anchor" href="#inconsistent-street-naming-languages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Inconsistent Street Naming Languages:</h3>
 <ul>
 <li>
 <code>Arabic</code> -&gt; <code>شارع معاوية بن أبي سفيان</code>
@@ -142,10 +142,8 @@ ISO3166-1:alpha2
 <code>English</code> -&gt; <code>Imam Saud Street</code>
 </li>
 </ul>
-</li>
-</ul>
-<h3>
-<a id="user-content-problems-with-arabic-street-names" class="anchor" href="#problems-with-arabic-street-names" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Problems with Arabic Street Names:</h3>
+<h4>
+<a id="user-content---problems-with-arabic-street-names" class="anchor" href="#--problems-with-arabic-street-names" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>- Problems with Arabic Street Names:</h4>
 <ul>
 <li>Written from right to left
 <ul>
@@ -158,8 +156,8 @@ ISO3166-1:alpha2
 </ul>
 </li>
 </ul>
-<h3>
-<a id="user-content-problems-with-english-street-names" class="anchor" href="#problems-with-english-street-names" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Problems with English Street Names:</h3>
+<h4>
+<a id="user-content---problems-with-english-street-names" class="anchor" href="#--problems-with-english-street-names" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>- Problems with English Street Names:</h4>
 <ul>
 <li>Abbreviations:
 <ul>
@@ -214,6 +212,22 @@ ISO3166-1:alpha2
 </li>
 </ul>
 <h3>
+<a id="user-content-inconsistent-postal-codes" class="anchor" href="#inconsistent-postal-codes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Inconsistent Postal codes:</h3>
+<ul>
+<li>
+<code>4 digits only</code> -&gt; <code>7069</code>
+</li>
+<li>
+<code>5 digits - standard</code> -&gt; <code>00966</code>
+</li>
+<li>
+<code>Arabic digits</code> -&gt; <code>١١٤٩١</code>
+</li>
+</ul>
+<h2>
+<a id="user-content-3-data-cleaning" class="anchor" href="#3-data-cleaning" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3. Data Cleaning</h2>
+<p>In this section, <code>data.py</code> file is used to convert XML map file to CSV files. Parsing, cleaning, and shaping the XML OSM data into python dictionaries using a specificed schema is also occuring while converting the data format. Then, the clean dataset is imported into an SQL database using <code>database.py</code> file. Below is an explanation of how I handle the cleaning of street names and postal codes.</p>
+<h3>
 <a id="user-content-handling-street-names" class="anchor" href="#handling-street-names" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Handling Street Names</h3>
 <div class="highlight highlight-source-python"><pre>street_type_re <span class="pl-k">=</span> re.compile(<span class="pl-sr"><span class="pl-k">r</span><span class="pl-pds">'</span><span class="pl-c1">\b</span><span class="pl-c1">[</span><span class="pl-c1">a-zA-Z</span><span class="pl-c1">]</span><span class="pl-k">+</span><span class="pl-cce">\.</span><span class="pl-k">?</span><span class="pl-c1">$</span><span class="pl-pds">'</span></span>, re.<span class="pl-c1">IGNORECASE</span>)
 street_type_ar_re <span class="pl-k">=</span> re.compile(<span class="pl-sr"><span class="pl-k">r</span><span class="pl-pds">'</span>(<span class="pl-c1">[</span><span class="pl-c1">\u0621</span><span class="pl-c1">-</span><span class="pl-c1">\u06FF</span><span class="pl-c1">]</span><span class="pl-k">+</span>)<span class="pl-pds">'</span></span>)</pre></div>
@@ -241,9 +255,10 @@ street_type_ar_re <span class="pl-k">=</span> re.compile(<span class="pl-sr"><sp
 
 	<span class="pl-k">return</span> name</pre></div>
 <p>Using the above update function, I updated all the bad street names either by mapping them to better written names, capitalizing the first letters, or attaching street keyword at the end.</p>
-<h2>
-<a id="user-content-3-data-cleaning" class="anchor" href="#3-data-cleaning" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3. Data Cleaning</h2>
-<p>In this section, <code>data.py</code> file is used to convert XML map file to CSV files. Parsing, cleaning, and shaping the XML OSM data into python dictionaries using a specificed schema is also occuring while converting the data format. Then, the clean dataset is imported into an SQL database using <code>database.py</code> file.</p>
+<h3>
+<a id="user-content-handling-postal-codes" class="anchor" href="#handling-postal-codes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Handling Postal Codes</h3>
+<div class="highlight highlight-source-python"><pre>postcode_re <span class="pl-k">=</span> re.compile(<span class="pl-sr"><span class="pl-k">r</span><span class="pl-pds">'</span><span class="pl-c1">^</span><span class="pl-c1">\d</span><span class="pl-k">{3,5}</span><span class="pl-c1">$</span><span class="pl-pds">'</span></span>)</pre></div>
+<p>Using regular expressions, I was able to find all postcodes that have 3-5 digits. Then, in my update_name function I clean all postcodes that are less than 5 digits (I found only two) where I return a standardized five digit postal code.</p>
 <h2>
 <a id="user-content-4-data-overview" class="anchor" href="#4-data-overview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4. Data Overview</h2>
 <p>This section includes general stats about the dataset, and the SQL queries used to collect the data.</p>
