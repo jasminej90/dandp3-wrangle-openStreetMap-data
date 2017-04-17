@@ -13,6 +13,7 @@ import re
 import xml.etree.cElementTree as ET
 
 from audit import update_name
+from audit import update_postcode
 from audit import mapping
 
 import cerberus
@@ -59,8 +60,10 @@ def shape_element(element, node_attr_fields=NODE_FIELDS, way_attr_fields=WAY_FIE
                 node_tag['type'] = child.attrib['k'].split(':',1)[0]
                 node_tag['key'] = child.attrib['k'].split(':',1)[1]
                 node_tag['id'] = element.attrib['id']
-                if child.attrib["k"] == 'addr:street' or child.attrib["k"] == 'addr:postcode':
+                if child.attrib["k"] == 'addr:street':
                     node_tag["value"] = update_name(child.attrib["v"], mapping)
+                elif child.attrib["k"] == 'addr:postcode':
+                    node_tag["value"] = update_postcode(child.attrib["v"], mapping)
                 else:
                     node_tag['value'] = child.attrib['v']
                 tags.append(node_tag)
@@ -74,8 +77,7 @@ def shape_element(element, node_attr_fields=NODE_FIELDS, way_attr_fields=WAY_FIE
                 tags.append(node_tag)
         
         return {'node': node_attribs, 'node_tags': tags}
-        
-        
+
     elif element.tag == 'way':
         for attr in element.attrib:
             if attr in WAY_FIELDS:
