@@ -130,7 +130,10 @@ def update_name(name, mapping):
  ```python
 postcode_re = re.compile(r'^\d{3,5}$')
 ```
-Using regular expressions, I was able to find all postcodes that have 3-5 digits. Then, in my update_name function I clean all postcodes that are less than 5 digits (I found only two) where I return a standardized five digit postal code.
+Using regular expressions, I was able to find all postcodes that have 3-5 digits. Then, in my update_name function I clean all postcodes that are less than 5 digits (I found only two). Also, I return a standardized five digit postal code from an entry like '10027-0094' using the below regular expression in update_postcode function.
+ ```python
+clean_postcode = re.findall(r'^(\d{5})-\d{4}$', postcode)[0]
+```
 
 ## 4. Data Overview
 This section includes general stats about the dataset, and the SQL queries used to collect the data.
