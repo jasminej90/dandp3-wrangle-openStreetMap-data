@@ -258,7 +258,8 @@ street_type_ar_re <span class="pl-k">=</span> re.compile(<span class="pl-sr"><sp
 <h3>
 <a id="user-content-handling-postal-codes" class="anchor" href="#handling-postal-codes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Handling Postal Codes</h3>
 <div class="highlight highlight-source-python"><pre>postcode_re <span class="pl-k">=</span> re.compile(<span class="pl-sr"><span class="pl-k">r</span><span class="pl-pds">'</span><span class="pl-c1">^</span><span class="pl-c1">\d</span><span class="pl-k">{3,5}</span><span class="pl-c1">$</span><span class="pl-pds">'</span></span>)</pre></div>
-<p>Using regular expressions, I was able to find all postcodes that have 3-5 digits. Then, in my update_name function I clean all postcodes that are less than 5 digits (I found only two) where I return a standardized five digit postal code.</p>
+<p>Using regular expressions, I was able to find all postcodes that have 3-5 digits. Then, in my update_name function I clean all postcodes that are less than 5 digits (I found only two). Also, I return a standardized five digit postal code from an entry like '10027-0094' using the below regular expression in update_postcode function.</p>
+<div class="highlight highlight-source-python"><pre>clean_postcode <span class="pl-k">=</span> re.findall(<span class="pl-sr"><span class="pl-k">r</span><span class="pl-pds">'</span><span class="pl-c1">^</span>(<span class="pl-c1">\d</span><span class="pl-k">{5}</span>)-<span class="pl-c1">\d</span><span class="pl-k">{4}</span><span class="pl-c1">$</span><span class="pl-pds">'</span></span>, postcode)[<span class="pl-c1">0</span>]</pre></div>
 <h2>
 <a id="user-content-4-data-overview" class="anchor" href="#4-data-overview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4. Data Overview</h2>
 <p>This section includes general stats about the dataset, and the SQL queries used to collect the data.</p>
