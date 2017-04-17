@@ -107,9 +107,6 @@ def update_name(name, mapping):
 		if name in mapping:
 			name = mapping[name]
 
-		elif is_number(name):
-			name = name
-
 		else:
 		    name = name.split(' ')
 
@@ -128,6 +125,16 @@ def update_name(name, mapping):
 
 		return name
 
+def update_postcode(postcode, mapping):
+
+	m = re.findall(r'^(\d{5})-\d{4}$', postcode)
+
+	if m:
+		postcode = m[0]
+	elif postcode in mapping:
+		postcode = mapping[postcode]
+
+	return postcode
 
 # helper functions
 def string_case(s):
@@ -135,13 +142,6 @@ def string_case(s):
         return s
     else:
         return s.title()
-
-def is_number(s):
-    try:
-        float(s)
-        return True
-    except ValueError:
-        return False
 
 def merge_two_dicts(x, y):
 	z = x.copy()
